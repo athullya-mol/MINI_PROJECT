@@ -55,11 +55,13 @@ def get_email_info():
     talk('To Whom you want to send email')
     name = get_info()
     receiver = email_list[name]
-    address_entry.insert(0,receiver)
+    address_entry.insert(0, receiver)
     talk('What is the subject of your email?')
     subject = get_info()
+    subject_entry.insert(0, subject)
     talk('Tell me the text in your email')
     message = get_info()
+    body_entry.insert(0, message)
     send_email(receiver, subject, message)
     talk('Your email is sent')
     talk('Do you want to send more email?')
@@ -70,9 +72,9 @@ def get_email_info():
 
 app.geometry("500x500")
 
-app.title("Python Mail Send App")
+app.title("Email Assistant")
 
-heading = Label(text="Python Email Sending App", bg="yellow", fg="black", font="10", width="500", height="3")
+heading = Label(text="Email Assistant With Speech Recognition ", bg="yellow", fg="black", font="10", width="500", height="3")
 
 heading.pack()
 
@@ -82,23 +84,28 @@ sbar = Label(app, textvariable=statusvar, relief=SUNKEN, anchor="w")
 sbar.pack(side=BOTTOM, fill=X)
 
 address_field = Label(text="Recipient Address :")
-email_body_field = Label(text="Message :")
+subject_field = Label(text="Subject :")
+body_field = Label(text="Message :")
 
 address_field.place(x=15, y=70)
-email_body_field.place(x=15, y=140)
+subject_field.place(x=15, y=140)
+body_field.place(x=15, y=240)
 
 address = StringVar()
-email_body = StringVar()
+sub = StringVar()
+body = StringVar()
 
 address_entry = Entry(textvariable=address, width="50")
-email_body_entry = Entry(textvariable=email_body, width="50")
+subject_entry = Entry(textvariable=sub, width="50")
+body_entry = Entry(textvariable=body, width="50")
 
-address_entry.place(x=15, y=100)
-email_body_entry.place(x=15, y=180)
+address_entry.place(x=15, y=100, height=20)
+subject_entry.place(x=15, y=180, height=40)
+body_entry.place(x=15, y=280, height="100")
 
 button = Button(app, text="Send Message", command=send_email, width="30", height="2", bg="grey")
 
-button.place(x=15, y=220)
+button.place(x=15, y=400)
 
 app.after(1000, get_email_info)
 mainloop()
